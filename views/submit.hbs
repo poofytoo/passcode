@@ -1,0 +1,49 @@
+<form>
+  <div>
+    Mainword: <input id="main" type="text"> Syllables: <input id="syllables" type="text">
+  </div>
+  <div>
+    Related 1: <input id="related1" type="text">
+  </div>
+  <div>
+    Related 2: <input id="related2" type="text">
+  </div>
+  <div>
+    Related 3: <input id="related3" type="text">
+  </div>
+  <div>
+    Related 4: <input id="related4" type="text">
+  </div>
+  <div>
+    Related 5: <input id="related5" type="text">
+  </div>
+</form>
+
+<script type="text/javascript">
+$(function() {
+  $(document).keypress(function(e) {
+    console.log(e.target.id)
+    if (e.target.id == 'main') {
+      $.get('/getsyllables', {main: $('#main').val()})
+        .done(function(data, err) {
+          console.log(data, err)
+          $('#syllables').val(data.s)
+        });
+    }
+
+    if (e.which == 13) {
+      var output = {}
+      $('input').each(function() {
+        if ($(this).val() !== '') {
+          output[$(this).attr('id')] = $(this).val() 
+        }
+        $(this).val('');
+      })
+      console.log(output)
+      $.post('/submitwords', output, function() {
+        console.log('done');
+      })
+    }
+  });
+});
+</script>
