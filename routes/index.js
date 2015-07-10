@@ -63,7 +63,7 @@ router.get('/scroll/:id', function(req, res, next) {
     randIndex = Math.floor(Math.random()*players.length)
     count = players[randIndex]
     players.splice(randIndex, 1)
-    var role = i.split('_')[0] == 'imposter' ? 'IMPOSTER' : 'MEMBER OF THE UNION'
+    var role = i.split('_')[0] == 'imposter' ? 'IMPOSTER' : 'CORPORATION'
     genList[count] = {
       word: wordList[i], 
       role: role,
