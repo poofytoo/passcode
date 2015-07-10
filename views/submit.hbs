@@ -1,3 +1,9 @@
+<h1>Wordset Uploader</h1>
+<h3>
+  Wordbank currently has <span class="numsets"></span> sets. Help upload more!
+</h3>
+<p class="instructions">Enter one main word and <em>at least</em> two related.<br />
+Check the number of syllables for the main word is correct</p>
 <form>
   <div>
     Mainword: <input id="main" type="text"> Syllables: <input id="syllables" type="text">
@@ -26,8 +32,14 @@
 </p>
 <script type="text/javascript">
 $(function() {
+  var getNumSets = function() {
+    $.get('/numsets')
+    .done(function(data) {
+      $('.numsets').text(data);
+    });
+  }
+
   $(document).keypress(function(e) {
-    console.log(e.target.id)
     if (e.target.id == 'main') {
       $.get('/getsyllables', {main: $('#main').val()})
         .done(function(data, err) {
@@ -49,6 +61,8 @@ $(function() {
         console.log('done');
       })
     }
+    getNumSets();
   });
+  getNumSets();
 });
 </script>

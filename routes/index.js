@@ -19,6 +19,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/numsets', function(req, res, next) {
+  res.send(''+Object.keys(wordBank).length)
+})
+
 router.get('/submit', function(req, res, next) {
   res.render('submit', {randomwords: randomWords({ exactly: 30, join: ' ' })});
 });
